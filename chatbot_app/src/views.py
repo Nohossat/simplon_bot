@@ -2,21 +2,26 @@ from flask import Flask, url_for, request, redirect
 from flask import render_template
 import json
 import pandas as pd
-from .chatbot import Chatbot
-from chatbot_app import app
 import os
 import re
+from chatbot_app import app
+from .chatbot import Chatbot
+
+# basedir = os.path.abspath(os.path.dirname(__file__))
+
+FILE_ABSOLUTE_PATH = os.path.abspath(__file__)  # get absolute filepath
+CURRENT_DIR = os.path.dirname(FILE_ABSOLUTE_PATH)  # get directory path of file
+
+faq_file = os.path.join(CURRENT_DIR, 'static/data/faq.csv')
 
 # construct our bot instance
-faq_path = os.path.join(os.getcwd(), 'chatbot_app/data/faq.csv')
-bot = Chatbot(faq_path, stem = True)
+bot = Chatbot(faq_file, stem = True)
 bot.extend_stop_words(['plus', 'tres', 'etc'])
 bot.create_corpus()
 
 # get the corpus as a DataFrame
-df = pd.read_csv(faq_path, encoding="utf-8")
-
-questions_topics_path = os.path.join(os.getcwd(), 'chatbot_app/data/questions_by_topics.json')
+df = pd.read_csv(faq_file, encoding="utf-8")
+questions_topics_path = os.path.join(CURRENT_DIR, 'static/data/questions_by_topics.json')
 
 # get questions grouped by topics for the topics buttons
 with open(questions_topics_path, 'r') as outfile:

@@ -1,4 +1,3 @@
-from selenium import webdriver
 import pandas as pd
 import numpy as np
 from stop_words import get_stop_words
@@ -18,7 +17,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 class Chatbot():
     def __init__(self, filename = None, stem = False, closest_answers_flag = False):
-        self.filename = filename
+        self.filename = filename # the file used to get the questions / answers of the FAQ
 
         try :
             self.data = pd.read_csv(self.filename, encoding="utf-8")
@@ -31,6 +30,9 @@ class Chatbot():
         self.stop_words = get_stop_words('french').copy()
         self.stem = stem
         self.closest_answers_flag = closest_answers_flag
+        self.enableForm = True
+        self.history = []
+        self.active = True
         self.responses = {
             "bjr" : "Bonjour, je suis Simbot, tu peux me poser des questions sur Simplon :", 
             "suite_question": "Ai-je répondu à ta question ? Si non, tu peux m'en poser une autre.",
@@ -38,9 +40,6 @@ class Chatbot():
             "response_neg" : "Je suis désolé, j'essaierai de faire mieux. Pose-moi une autre question !",
             "bye" : "C'est compris. A bientôt !"
         }
-        self.enableForm = True
-        self.history = []
-        self.active = True
     
     @staticmethod
     def tokenize(document):
@@ -68,18 +67,13 @@ class Chatbot():
     def extend_stop_words(self, words):
         self.stop_words.extend(words)
 
-    def clean_comment(self, document):
-        """
-        remove stop words, numbers and small words form the corpus
-        """
-        return [word.lower() for word in document if len(word) > 2 and not word.isnumeric() and word not in self.stop_words]
-
     def nettoyage(self, document):
         """
         function to clean the dataset + stemming
         """
-        document = self.clean_comment(self.tokenize(document))
-        
+        document = self.tokenize(document)
+        document = [word.lower() for word in document if len(word) > 2 and not word.isnumeric() and word not in self.stop_words]
+
         if self.stem:
             stem = FrenchStemmer()
             document = [stem.stem(word) for word in document]

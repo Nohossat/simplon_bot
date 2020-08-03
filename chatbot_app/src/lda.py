@@ -12,8 +12,8 @@ import spacy
 
 
 def corpus_gen(data):
-        for row in data:
-            yield row
+    for row in data:
+        yield row
 
 def clean_doc(doc):
     stop_words = get_stop_words('french').copy() 
@@ -30,8 +30,8 @@ def get_bigrams(docs):
         bigrams_list = [' '.join(bigram) for bigram in bigrams]
         yield bigrams_list
 
-def get_bow_matrix():
-    df = pd.read_csv("../data/faq.csv", encoding="utf-8")
+def get_bow_matrix(faq_path):
+    df = pd.read_csv(faq_path, encoding="utf-8")
 
     # generate bigrams
     corpus = corpus_gen(df.full_text.values.tolist())
@@ -49,9 +49,9 @@ def get_bow_matrix():
     matrix_bow = [id2word.doc2bow(bigram) for bigram in bigrams]
     return matrix_bow
 
-def get_questions_by_topic():
-    matrix_bow = get_bow_matrix()
-    lda_model = models.ldamodel.LdaModel.load("../models/lda_model")
+def get_questions_by_topic(faq_path, model, output_topics):
+    matrix_bow = get_bow_matrix(faq_path)
+    lda_model = models.ldamodel.LdaModel.load(model)
     topics = ["économie sociale et solidaire", "projets Simplon", "école numérique", "reconversion professionnelle"] # induced by the model
     questions_by_topics = {}
 
@@ -65,8 +65,8 @@ def get_questions_by_topic():
         questions_by_topics[topics[topic_idx]]['questions'].append(i)
         
     # save to json for future use   
-    with open("../data/questions_by_topics.json", 'w') as outfile:
+    with open(output_topics, 'w') as outfile:
         json.dump(questions_by_topics, outfile)
 
 if __name__ == "__main__":
-    get_questions_by_topic()
+    get_questions_by_topic("../data/faq.csv", "../models/lda_model", "../data/questions_by_topics.json")
