@@ -73,10 +73,11 @@
                             </div>
                             
                             {% for topic in topics %}
-                                <div class="topic_questions topic_{{loop.index}}">
+                                {% set topic_number = loop.index %}
+                                <div class="topic_questions topic_{{topic_number}}">
                                     {% for idx in topics[topic].questions %}
-                                        <p>{{ data[idx] }}</p>
-                                        <div class="topic_responses topic_{{loop.index}}">
+                                        <p class="question_faq topic_{{topic_number}} q_{{loop.index}}">{{ data[idx] }}</p>
+                                        <div class="response_faq topic_{{topic_number}} q_{{loop.index}}">
                                             <p>{{ responses[idx] }}</p>
                                         </div>
                                     {% endfor %}

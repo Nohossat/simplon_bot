@@ -7,12 +7,16 @@
     margin: 4em auto;
 }
 
-.topic_questions {
-    font-weight: bold;
+.topic_questions .question_faq {
+    color: #4E5166;
     cursor : pointer;
+
+    &:hover {
+        color : #672A4E;
+    }
 }
 
-.topic_questions, .topic_responses {
+.topic_questions, .response_faq {
     margin-left: 2em;
     display: none;
 }
