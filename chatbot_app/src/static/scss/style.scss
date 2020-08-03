@@ -1,7 +1,3 @@
-.chatbot {
-    margin-top: 2em;
-}
-
 .main_container {
     width: 800px;
     margin: 4em auto;
@@ -38,3 +34,48 @@
     flex-direction: row-reverse;
 }
 
+
+.bloc_question {
+    margin-top: 2em;
+}
+
+
+.see-more-btn {
+    color: #9C0D38;
+    cursor: pointer;
+
+    &:hover {
+        color: #3D2645;
+    }
+}
+  
+.full_response {
+    display : none;
+}
+
+.hide_form_user, .hide_answer, .hide_btn_topics {
+    display : none;
+}
+
+button.btn-primary{
+    background-color: #421820;
+    border-color: #421820;
+
+    &:hover {
+        background-color: #CD5D67;
+        border-color: #CD5D67;
+    }
+}
+
+.question_bot {
+    font-weight: bold;
+}
+
+.question_user {
+    font-weight: bold;
+    color: #6D435A;
+}
+
+.quit_bot {
+    color: #6A5A72;
+}

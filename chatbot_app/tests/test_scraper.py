@@ -1,5 +1,5 @@
 import pytest
-from chatbot_flask.src.faq import scraper
+from ..src.faq import scraper
 import pandas as pd
 
 def test_scraper():

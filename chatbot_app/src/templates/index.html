@@ -10,30 +10,44 @@
 </head>
 <body>
     <div class="main_container">
-        <div>
-            <h1>Simbot</h1>
-            <h3>Simplon, réseau de Fabriques numériques et inclusives</h3>
-            <p>Simplon.co est un réseau de Fabriques solidaires et inclusives qui proposent des formations 
+        <div class="mb-4">
+            <h1 class="text-center">Simplon, réseau de Fabriques numériques et inclusives</h1>
+            <p class="text-center"> Simplon.co est un réseau de Fabriques solidaires et inclusives qui proposent des formations 
                 gratuites aux métiers techniques du numérique en France et à l’étranger</p>
+
+            <h2 class="mt-5">Simbot</h2>
+            <p>On te présente Simbot, notre chatbot, tu peux lui poser des questions sur les principes de Simplon, son fonctionnement, etc..</p>
         </div>
 
         {% if history %}
             {% for hist in history %}
-                <div>
-                    <div class="response-bot row">
-                        <div class="col-sm-2">
-                            <p>USER</p>
-                        </div>
-                        <div class="col-sm-10">
-                            <p>{{ hist[0] }}</p>
-                        </div>
-                    </div>
+                <div class="bloc_question">
                     <div class="response-bot row">
                         <div class="col-sm-2">
                             <p>BOT</p>
                         </div>
-                        <div class="col-sm-10">
-                            <p>{{ hist[1] }}</p>
+                        <div class="col-sm-10 question_bot">
+                            <p>{{ hist.question_bot }}</p>
+                        </div>
+                    </div>
+                    <div class="response-bot row">
+                        <div class="col-sm-2">
+                            <p>USER</p>
+                        </div>
+                        <div class="col-sm-10 question_user">
+                            <p>{{ hist.question }}</p>
+                        </div>
+                    </div>
+                    <div class="response-bot row {{ 'hide_answer' if not hist.preview else '' }}">
+                        <div class="col-sm-2">
+                            <p>BOT</p>
+                        </div>
+                        <div class="col-sm-10 mb-4">
+                            <div>
+                                <span class="preview">{{ hist.preview }}</span>
+                                <span class="see-more-btn">Voir plus</span>
+                                <span class="full_response">{{ hist.answer }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -46,11 +60,11 @@
                     <div class="col-sm-2">
                         <p>BOT</p>
                     </div>
-                    <div class="col-sm-10">
-                        <p>{{ bot.question }}, je suis Simbot, tu peux me poser des questions sur Simplon : </p>
+                    <div class="col-sm-10 question_bot">
+                        <p>{{ bot.question }} </p>
                     </div>
                 </div>
-                <form action="{{ url_for('question') }}" method="POST">
+                <form action="{{ url_for('question') }}" method="POST" class="{{ 'hide_form_user' if not bot.enableForm else '' }}"> 
                     <div class="form-group row">
                         <label for="question" class="col-sm-2 col-form-label">USER</label>
                         <div class="col-sm-10">
@@ -63,6 +77,11 @@
                   </form>
             </div>
             <div class="row mt-4">
+                <div class="col-sm-12 quit_bot">
+                    <p> Pour quitter le bot, dites lui au revoir, ciao ou bye, il comprendra ;-)</p>
+                </div>
+            </div>
+            <div class="row mt-4 {{ 'hide_btn_topics' if not bot.active else '' }}">
                 <div class="col-sm-12">
                     {% if topics %}
                         <p>Si tu ne sais pas quelle question poser, tu peux t'orienter avec les topics suivants : </p>
@@ -78,7 +97,7 @@
                                     {% for idx in topics[topic].questions %}
                                         <p class="question_faq topic_{{topic_number}} q_{{loop.index}}">{{ data[idx] }}</p>
                                         <div class="response_faq topic_{{topic_number}} q_{{loop.index}}">
-                                            <p>{{ responses[idx] }}</p>
+                                            <p>{{ responses[idx][1] }}</p>
                                         </div>
                                     {% endfor %}
                                 </div>

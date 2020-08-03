@@ -32,10 +32,15 @@ class Chatbot():
         self.stem = stem
         self.closest_answers_flag = closest_answers_flag
         self.responses = {
-            "bjr" : "Bonjour", 
-            "question": "As-tu une question ?", 
-            "bye" : "Au revoir"
+            "bjr" : "Bonjour, je suis Simbot, tu peux me poser des questions sur Simplon :", 
+            "suite_question": "Ai-je répondu à ta question ? Si non, tu peux m'en poser une autre.",
+            "response_pos": "Coool ! Souhaites-tu poser une autre question ?", 
+            "response_neg" : "Je suis désolé, j'essaierai de faire mieux. Pose-moi une autre question !",
+            "bye" : "C'est compris. A bientôt !"
         }
+        self.enableForm = True
+        self.history = []
+        self.active = True
     
     @staticmethod
     def tokenize(document):
@@ -86,13 +91,14 @@ class Chatbot():
         """
         # we clean the user input & add it to our corpus (last index)
         user_corpus = self.nettoyage(question)
-        self.corpus.append(' '.join(user_corpus))
+        corpus_with_question = self.corpus.copy()
+        corpus_with_question.append(' '.join(user_corpus))
         
         # transform our corpus into a BOW matrix
         vectorizer = TfidfVectorizer()
-        user_corpus_vect = vectorizer.fit_transform(self.corpus)
+        user_corpus_vect = vectorizer.fit_transform(corpus_with_question)
         
-        # prefer array to get the similarity
+        # transform to array to get the similarity
         user_corpus_array = user_corpus_vect.toarray()
         
         # cosine similiarity between the user input and all the topics
@@ -111,21 +117,3 @@ class Chatbot():
     def create_corpus(self):
         corpus_df = self.data.full_text.apply(self.nettoyage)
         self.corpus = [" ".join(text_list) for text_list in corpus_df]
-
-
-if __name__ == "__main__":
-    # init chatbot
-    
-    bot = Chatbot('../data/faq.csv', stem = True)
-    bot.extend_stop_words(['plus', 'tres', 'etc'])
-    bot.create_corpus()
-
-    while True:
-        bot.question = input("BOT : Salut, as-tu une question à me poser ? (Taper q pour quitter)")
-        print(f"USER : {bot.question}")
-        if bot.question == 'q':
-            break
-        
-        bot.get_answer()
-        print("=========")
-        print(bot.answer)
