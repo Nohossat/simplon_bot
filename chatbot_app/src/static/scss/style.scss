@@ -1,0 +1,36 @@
+.chatbot {
+    margin-top: 2em;
+}
+
+.main_container {
+    width: 800px;
+    margin: 4em auto;
+}
+
+.topic_questions {
+    font-weight: bold;
+    cursor : pointer;
+}
+
+.topic_questions, .topic_responses {
+    margin-left: 2em;
+    display: none;
+}
+
+.liste_buttons {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 1em;
+
+    button {
+        width: 100%;
+        font-size: 0.9em;
+        margin-bottom : 1em;
+    }
+}
+
+.btn_block {
+    display:flex;
+    flex-direction: row-reverse;
+}
+
