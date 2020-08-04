@@ -6,11 +6,8 @@ install:
   - python3 -m spacy download fr_core_news_sm
 before_script:
   - wget https://chromedriver.storage.googleapis.com/85.0.4183.38/chromedriver_linux64.zip
-  - unzip chromedriver_linux64.zip
-  - rm chromedriver_linux64.zip
-  - sudo mv -f chromedriver /usr/local/share/
-  - sudo chmod +x /usr/local/share/chromedriver
-  - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+  - unzip chromedriver_linux64.zip -d /home/travis/virtualenv/python3.8.0/bin/
+  - export CHROME_BIN=chromium-browser
 addons:
   chrome: stable
 script:
