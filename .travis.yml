@@ -2,8 +2,7 @@ language: python
 python:
   - "3.8"
 install:
-  - wget -N https://chromedriver.storage.googleapis.com/index.html?path=84.0.4147.30/chromedriver_linux64.zip -O ~/chromedriver_linux64.zip
-  - ls
+  - wget -N https://chromedriver.storage.googleapis.com/index.html?path=84.0.4147.30/chromedriver_linux64.zip
   - unzip ~/chromedriver_linux64.zip -d ~/
   - rm ~/chromedriver_linux64.zip
   - sudo mv -f ~/chromedriver /usr/local/share/
