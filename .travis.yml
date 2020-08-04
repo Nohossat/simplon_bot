@@ -13,3 +13,5 @@ before_script:
   - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
 addons:
   chrome: stable
+script:
+  - pytest
