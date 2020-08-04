@@ -4,8 +4,8 @@ import os
 import types
 import spacy
 
-FILE_ABSOLUTE_PATH = os.path.abspath(__file__)  # get absolute filepath
-CURRENT_DIR = os.path.dirname(FILE_ABSOLUTE_PATH)  # get directory path of file
+FILE_REL_PATH = os.path.relpath(__file__)
+CURRENT_DIR = os.path.dirname(FILE_REL_PATH)  # get directory path of file
 PARENT_DIR = os.path.dirname(CURRENT_DIR)
 
 def test_corpus_gen():

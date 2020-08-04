@@ -3,14 +3,17 @@ import os
 
 from chatbot_app.src.chatbot import Chatbot
 
-FILE_ABSOLUTE_PATH = os.path.abspath(__file__)  # get absolute filepath
-CURRENT_DIR = os.path.dirname(FILE_ABSOLUTE_PATH)  # get directory path of file
-PARENT_DIR = os.path.dirname(CURRENT_DIR)
+# FILE_REL_PATH = os.path.relpath(__file__)  # get rel filepath
+# CURRENT_DIR = os.path.dirname(FILE_ABSOLUTE_PATH)  # get directory path of file
+# PARENT_DIR = os.path.dirname(CURRENT_DIR)
 
+FILE_REL_PATH = os.path.relpath(__file__)
+CURRENT_DIR = os.path.dirname(FILE_REL_PATH)  # get directory path of file
+PARENT_DIR = os.path.dirname(CURRENT_DIR)
 
 def test_read_faq_file():
     faq_file = os.path.join(PARENT_DIR, 'chatbot_app/src/static/data/faq.csv')
-    assert faq_file == "/Users/nohossat/Documents/simplon-vms/chatbot_flask/chatbot_app/src/static/data/faq.csv", "error while reading faq file"
+    assert faq_file == "chatbot_app/src/static/data/faq.csv", "error while reading faq file"
 
 def test_bot_init():
     faq_file = os.path.join(PARENT_DIR, 'chatbot_app/src/static/data/faq.csv')

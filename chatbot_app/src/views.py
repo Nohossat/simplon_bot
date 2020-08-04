@@ -7,11 +7,11 @@ import re
 from chatbot_app import app
 from .chatbot import Chatbot
 
-# basedir = os.path.abspath(os.path.dirname(__file__))
+FILE_REL_PATH = os.path.relpath(__file__)
+CURRENT_DIR = os.path.dirname(FILE_REL_PATH)  # get directory path of file
 
-FILE_ABSOLUTE_PATH = os.path.abspath(__file__)  # get absolute filepath
-CURRENT_DIR = os.path.dirname(FILE_ABSOLUTE_PATH)  # get directory path of file
 
+print(FILE_REL_PATH, CURRENT_DIR)
 faq_file = os.path.join(CURRENT_DIR, 'static/data/faq.csv')
 
 # construct our bot instance
