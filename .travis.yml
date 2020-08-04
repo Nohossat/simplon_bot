@@ -1,14 +1,15 @@
 language: python
 python:
   - "3.8"
+install:
+  - pip install -r requirements.txt
+  - python3 -m spacy download fr_core_news_sm
 before_script:
-  - wget -N https://chromedriver.storage.googleapis.com/85.0.4183.38/chromedriver_linux64.zip
-  - unzip ~/chromedriver_linux64.zip -d ~/
-  - rm ~/chromedriver_linux64.zip
-  - sudo mv -f ~/chromedriver /usr/local/share/
+  - wget https://chromedriver.storage.googleapis.com/85.0.4183.38/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - rm chromedriver_linux64.zip
+  - sudo mv -f chromedriver /usr/local/share/
   - sudo chmod +x /usr/local/share/chromedriver
   - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
 addons:
   chrome: stable
-script:
-  - pytest
