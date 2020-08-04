@@ -4,6 +4,12 @@ python:
 install:
   - pip install -r requirements.txt
   - python3 -m spacy download fr_core_news_sm
+  - wget -N https://chromedriver.storage.googleapis.com/index.html?path=84.0.4147.30/chromedriver_linux64.zip -P ~/
+  - unzip ~/chromedriver_linux64.zip -d ~/
+  - rm ~/chromedriver_linux64.zip
+  - sudo mv -f ~/chromedriver /usr/local/share/
+  - sudo chmod +x /usr/local/share/chromedriver
+  - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
 addons:
   chrome: stable
 script:
