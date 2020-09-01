@@ -10,12 +10,10 @@ from .chatbot import Chatbot
 FILE_REL_PATH = os.path.relpath(__file__)
 CURRENT_DIR = os.path.dirname(FILE_REL_PATH)  # get directory path of file
 
-
-print(FILE_REL_PATH, CURRENT_DIR)
 faq_file = os.path.join(CURRENT_DIR, 'static/data/faq.csv')
 
 # construct our bot instance
-bot = Chatbot(faq_file, stem = True)
+bot = Chatbot(faq_file, stem = True, stop_words="fr")
 bot.extend_stop_words(['plus', 'tres', 'etc'])
 bot.create_corpus()
 

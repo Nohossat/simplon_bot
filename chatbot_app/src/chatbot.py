@@ -16,7 +16,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 class Chatbot():
-    def __init__(self, filename = None, stem = False, closest_answers_flag = False):
+    def __init__(self, filename = None, stem = False, closest_answers_flag = False, stop_words="en"):
         self.filename = filename # the file used to get the questions / answers of the FAQ
 
         try :
@@ -27,7 +27,11 @@ class Chatbot():
         self.corpus = None
         self.question = None
         self.answer = None
-        self.stop_words = get_stop_words('french').copy()
+
+        if stop_words == "en":
+            self.stop_words = get_stop_words().copy()
+        elif stop_words == "fr":
+            self.stop_words = get_stop_words('french').copy()
         self.stem = stem
         self.closest_answers_flag = closest_answers_flag
         self.enableForm = True
