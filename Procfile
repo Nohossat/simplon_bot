@@ -1,1 +1,1 @@
-web: gunicorn hotel_app:app
+web: gunicorn chatbot_app:app
