@@ -61,7 +61,7 @@ toml==0.10.1
 tox==3.17.1
 tqdm==4.48.0
 Unidecode==1.1.1
-urllib3==1.25.9
+urllib3==1.26.5
 virtualenv==20.0.27
 wasabi==0.7.1
 wcwidth==0.2.5
